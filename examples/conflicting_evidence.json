@@ -1,0 +1,11 @@
+{
+  "task_id": "alpha-conflict-003",
+  "rfi_id": "RFI-044",
+  "question": "Which listed firestop system governs the rated wall penetration detail?",
+  "bundle_path": "fixtures/project_alpha/document_bundle.json",
+  "allowed_document_keys": ["A-101", "SPEC-079200", "SUBMITTAL-FIRESTOP"],
+  "required_document_keys": ["SPEC-079200", "SUBMITTAL-FIRESTOP"],
+  "scenario": "conflicting_evidence",
+  "max_documents": 10,
+  "max_output_claims": 4
+}

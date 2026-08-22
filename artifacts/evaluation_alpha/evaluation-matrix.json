@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "network_used": false,
+  "model_used": false,
+  "cases": [
+    {
+      "manifest": "supported_evidence.json",
+      "expected_terminal_state": "evidence_packet_ready",
+      "actual_terminal_state": "evidence_packet_ready",
+      "result": "PASS",
+      "dossier": "artifacts/evaluation_alpha/alpha-supported-001-dossier.md",
+      "receipt": "artifacts/evaluation_alpha/alpha-supported-001-receipt.json"
+    },
+    {
+      "manifest": "stale_revision.json",
+      "expected_terminal_state": "stale_revision_detected",
+      "actual_terminal_state": "stale_revision_detected",
+      "result": "PASS",
+      "dossier": "artifacts/evaluation_alpha/alpha-stale-002-dossier.md",
+      "receipt": "artifacts/evaluation_alpha/alpha-stale-002-receipt.json"
+    },
+    {
+      "manifest": "conflicting_evidence.json",
+      "expected_terminal_state": "conflicting_evidence",
+      "actual_terminal_state": "conflicting_evidence",
+      "result": "PASS",
+      "dossier": "artifacts/evaluation_alpha/alpha-conflict-003-dossier.md",
+      "receipt": "artifacts/evaluation_alpha/alpha-conflict-003-receipt.json"
+    },
+    {
+      "manifest": "missing_source.json",
+      "expected_terminal_state": "missing_source",
+      "actual_terminal_state": "missing_source",
+      "result": "PASS",
+      "dossier": "artifacts/evaluation_alpha/alpha-missing-004-dossier.md",
+      "receipt": "artifacts/evaluation_alpha/alpha-missing-004-receipt.json"
+    },
+    {
+      "manifest": "policy_blocked.json",
+      "expected_terminal_state": "policy_blocked",
+      "actual_terminal_state": "policy_blocked",
+      "result": "PASS",
+      "dossier": "artifacts/evaluation_alpha/alpha-policy-005-dossier.md",
+      "receipt": "artifacts/evaluation_alpha/alpha-policy-005-receipt.json"
+    }
+  ]
+}

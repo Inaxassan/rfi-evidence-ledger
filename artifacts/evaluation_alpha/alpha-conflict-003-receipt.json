@@ -1,0 +1,48 @@
+{
+  "allowed_document_keys": [
+    "A-101",
+    "SPEC-079200",
+    "SUBMITTAL-FIRESTOP"
+  ],
+  "citation_count": 0,
+  "claim_count": 0,
+  "elapsed_seconds": 3.8e-05,
+  "policy_events": [
+    {
+      "allowed": true,
+      "reason": "All bundle document keys are explicitly authorized by the task manifest.",
+      "rule": "manifest.document_allowlist"
+    },
+    {
+      "allowed": true,
+      "reason": "All required evidence document keys are present in the authorized bundle.",
+      "rule": "manifest.required_evidence"
+    },
+    {
+      "allowed": true,
+      "reason": "Bundle contains 4 documents within the manifest budget.",
+      "rule": "budget.max_documents"
+    }
+  ],
+  "receipt_sha256": "446d4e2c8783955338058365329098f42b342cbc22f25bc5e8d9a1f7b6927035",
+  "required_document_keys": [
+    "SPEC-079200",
+    "SUBMITTAL-FIRESTOP"
+  ],
+  "required_human_action": "Review the cited evidence packet. This alpha cannot issue, submit, modify, or close an RFI.",
+  "rfi_id": "RFI-044",
+  "runner": {
+    "name": "rfi-evidence-ledger",
+    "version": "0.1.0a0"
+  },
+  "schema_version": "1.0",
+  "source_registry_sha256": "9b76350718f802fe2822cda3c7d3366665fec48d09b626a7f1f1ca1a775504fc",
+  "summary": "Current approved sources contain materially different firestopping requirements. The runner escalated both citations and made no interpretation.",
+  "task_id": "alpha-conflict-003",
+  "task_manifest_sha256": "acc2fafd985e9ae547fbaa201594a32d4edf337743dd6267f41d02217468b265",
+  "terminal_state": "conflicting_evidence",
+  "warnings": [
+    "Conflict source A: SPEC-079200-R1 r1 \u2014 Section 07 92 00: At rated penetrations where firestopping is indicated, use tested UL system F-100.",
+    "Conflict source B: SUBMITTAL-FIRESTOP-R2 r2 \u2014 Approved product data revision 2: Install firestop system F-200 at rated wall penetrations."
+  ]
+}

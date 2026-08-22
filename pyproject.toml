@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rfi-evidence-ledger"
+version = "0.1.0a0"
+description = "A bounded construction RFI evidence-runner evaluation alpha"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Manus AI"}]
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+rfi-evidence-ledger = "rfi_evidence_ledger.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,12 @@
+{
+  "task_id": "alpha-stale-002",
+  "rfi_id": "RFI-043",
+  "question": "Can revision 2 of drawing A-101 be used as current governing evidence?",
+  "bundle_path": "fixtures/project_alpha/document_bundle.json",
+  "allowed_document_keys": ["A-101", "SPEC-079200", "SUBMITTAL-FIRESTOP"],
+  "required_document_keys": ["A-101"],
+  "scenario": "stale_revision",
+  "requested_revision": ["A-101", 2],
+  "max_documents": 10,
+  "max_output_claims": 4
+}

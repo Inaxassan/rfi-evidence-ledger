@@ -1,0 +1,11 @@
+{
+  "task_id": "alpha-missing-004",
+  "rfi_id": "RFI-045",
+  "question": "What structural penetration detail governs this location?",
+  "bundle_path": "fixtures/project_alpha/document_bundle.json",
+  "allowed_document_keys": ["A-101", "SPEC-079200", "SUBMITTAL-FIRESTOP", "S-501"],
+  "required_document_keys": ["S-501"],
+  "scenario": "supported_evidence",
+  "max_documents": 10,
+  "max_output_claims": 4
+}

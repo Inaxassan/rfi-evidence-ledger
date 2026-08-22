@@ -1,0 +1,44 @@
+{
+  "allowed_document_keys": [
+    "A-101",
+    "SPEC-079200"
+  ],
+  "citation_count": 0,
+  "claim_count": 0,
+  "elapsed_seconds": 3e-05,
+  "policy_events": [
+    {
+      "allowed": false,
+      "reason": "Bundle contains unauthorized document keys: SUBMITTAL-FIRESTOP",
+      "rule": "manifest.document_allowlist"
+    },
+    {
+      "allowed": true,
+      "reason": "All required evidence document keys are present in the authorized bundle.",
+      "rule": "manifest.required_evidence"
+    },
+    {
+      "allowed": true,
+      "reason": "Bundle contains 4 documents within the manifest budget.",
+      "rule": "budget.max_documents"
+    }
+  ],
+  "receipt_sha256": "bbb36caff47ee13b7c5ab9aa179a3fc6f880eb8a15a5f23fc1cba7771919e073",
+  "required_document_keys": [
+    "A-101",
+    "SPEC-079200"
+  ],
+  "required_human_action": "Review the cited evidence packet. This alpha cannot issue, submit, modify, or close an RFI.",
+  "rfi_id": "RFI-046",
+  "runner": {
+    "name": "rfi-evidence-ledger",
+    "version": "0.1.0a0"
+  },
+  "schema_version": "1.0",
+  "source_registry_sha256": "9b76350718f802fe2822cda3c7d3366665fec48d09b626a7f1f1ca1a775504fc",
+  "summary": "The runner stopped before evidence generation because the approved manifest boundary was not satisfied.",
+  "task_id": "alpha-policy-005",
+  "task_manifest_sha256": "b28b3ca988df4cc55c4fc0ad5d232d99571386e676320c29cec8f25e1b8a865e",
+  "terminal_state": "policy_blocked",
+  "warnings": []
+}

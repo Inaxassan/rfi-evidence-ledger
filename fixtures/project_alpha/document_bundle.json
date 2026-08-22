@@ -1,0 +1,68 @@
+{
+  "documents": [
+    {
+      "document_id": "A-101-R2",
+      "document_key": "A-101",
+      "revision": 2,
+      "status": "superseded",
+      "discipline": "architecture",
+      "title": "Level 1 Life Safety Plan",
+      "regions": [
+        {
+          "page_or_sheet": "A-101",
+          "region_label": "detail D7",
+          "text": "Revision 2 detail D7: Provide listed firestop system F-090 at rated wall penetrations.",
+          "parser_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "document_id": "A-101-R3",
+      "document_key": "A-101",
+      "revision": 3,
+      "status": "current",
+      "discipline": "architecture",
+      "title": "Level 1 Life Safety Plan",
+      "regions": [
+        {
+          "page_or_sheet": "A-101",
+          "region_label": "detail D7",
+          "text": "Revision 3 detail D7: Provide listed firestop system F-100 at rated wall penetrations.",
+          "parser_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "document_id": "SPEC-079200-R1",
+      "document_key": "SPEC-079200",
+      "revision": 1,
+      "status": "current",
+      "discipline": "specification",
+      "title": "Joint Sealants and Firestopping",
+      "regions": [
+        {
+          "page_or_sheet": "07 92 00",
+          "region_label": "governing requirement",
+          "text": "Section 07 92 00: At rated penetrations where firestopping is indicated, use tested UL system F-100.",
+          "parser_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "document_id": "SUBMITTAL-FIRESTOP-R2",
+      "document_key": "SUBMITTAL-FIRESTOP",
+      "revision": 2,
+      "status": "current",
+      "discipline": "submittal",
+      "title": "Firestopping Product Data",
+      "regions": [
+        {
+          "page_or_sheet": "PD-4",
+          "region_label": "installation note",
+          "text": "Approved product data revision 2: Install firestop system F-200 at rated wall penetrations.",
+          "parser_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

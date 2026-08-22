@@ -1,0 +1,44 @@
+{
+  "allowed_document_keys": [
+    "A-101",
+    "SPEC-079200",
+    "SUBMITTAL-FIRESTOP"
+  ],
+  "citation_count": 0,
+  "claim_count": 0,
+  "elapsed_seconds": 5.7e-05,
+  "policy_events": [
+    {
+      "allowed": true,
+      "reason": "All bundle document keys are explicitly authorized by the task manifest.",
+      "rule": "manifest.document_allowlist"
+    },
+    {
+      "allowed": true,
+      "reason": "All required evidence document keys are present in the authorized bundle.",
+      "rule": "manifest.required_evidence"
+    },
+    {
+      "allowed": true,
+      "reason": "Bundle contains 4 documents within the manifest budget.",
+      "rule": "budget.max_documents"
+    }
+  ],
+  "receipt_sha256": "7bbbdd11c0fcfccb7054f6286af4ceb4a17785f9bc5c4a821c9a1b96d6dfbd29",
+  "required_document_keys": [
+    "A-101"
+  ],
+  "required_human_action": "Review the cited evidence packet. This alpha cannot issue, submit, modify, or close an RFI.",
+  "rfi_id": "RFI-043",
+  "runner": {
+    "name": "rfi-evidence-ledger",
+    "version": "0.1.0a0"
+  },
+  "schema_version": "1.0",
+  "source_registry_sha256": "9b76350718f802fe2822cda3c7d3366665fec48d09b626a7f1f1ca1a775504fc",
+  "summary": "A-101-R2 revision 2 is superseded by A-101-R3 revision 3; the runner will not use it as governing evidence.",
+  "task_id": "alpha-stale-002",
+  "task_manifest_sha256": "109f2d89f4fd9af391555d961b942aae74322e63aef701f00268d6b4ae0033e8",
+  "terminal_state": "stale_revision_detected",
+  "warnings": []
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "alpha-supported-001",
+  "rfi_id": "RFI-042",
+  "question": "What current drawing and specification evidence is available for the rated wall penetration detail?",
+  "bundle_path": "fixtures/project_alpha/document_bundle.json",
+  "allowed_document_keys": ["A-101", "SPEC-079200", "SUBMITTAL-FIRESTOP"],
+  "required_document_keys": ["A-101", "SPEC-079200"],
+  "scenario": "supported_evidence",
+  "max_documents": 10,
+  "max_output_claims": 4
+}

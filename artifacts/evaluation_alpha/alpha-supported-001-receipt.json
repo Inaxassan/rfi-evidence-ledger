@@ -1,0 +1,45 @@
+{
+  "allowed_document_keys": [
+    "A-101",
+    "SPEC-079200",
+    "SUBMITTAL-FIRESTOP"
+  ],
+  "citation_count": 2,
+  "claim_count": 2,
+  "elapsed_seconds": 6e-05,
+  "policy_events": [
+    {
+      "allowed": true,
+      "reason": "All bundle document keys are explicitly authorized by the task manifest.",
+      "rule": "manifest.document_allowlist"
+    },
+    {
+      "allowed": true,
+      "reason": "All required evidence document keys are present in the authorized bundle.",
+      "rule": "manifest.required_evidence"
+    },
+    {
+      "allowed": true,
+      "reason": "Bundle contains 4 documents within the manifest budget.",
+      "rule": "budget.max_documents"
+    }
+  ],
+  "receipt_sha256": "f9c4e832878e2bdd90a9961ebee5ca51115ed7c0d4de22af7e0a279f2404e90d",
+  "required_document_keys": [
+    "A-101",
+    "SPEC-079200"
+  ],
+  "required_human_action": "Review the cited evidence packet. This alpha cannot issue, submit, modify, or close an RFI.",
+  "rfi_id": "RFI-042",
+  "runner": {
+    "name": "rfi-evidence-ledger",
+    "version": "0.1.0a0"
+  },
+  "schema_version": "1.0",
+  "source_registry_sha256": "9b76350718f802fe2822cda3c7d3366665fec48d09b626a7f1f1ca1a775504fc",
+  "summary": "Current drawing and specification sources were cited and replay-validated. A human project manager must still determine any official RFI response.",
+  "task_id": "alpha-supported-001",
+  "task_manifest_sha256": "dff08e77110d494e569aec1a05c22463ad582c2f2cc2ad4c5ac6847b7f5f1c05",
+  "terminal_state": "evidence_packet_ready",
+  "warnings": []
+}
