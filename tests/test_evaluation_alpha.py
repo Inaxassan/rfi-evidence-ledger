@@ -9,7 +9,7 @@ from rfi_evidence_ledger.artifacts import build_receipt, write_artifacts
 from rfi_evidence_ledger.intake import IntakeError, load_bundle, load_task
 from rfi_evidence_ledger.models import Citation, EvidenceClaim, TerminalState
 from rfi_evidence_ledger.registry import RevisionRegistry
-from rfi_evidence_ledger.runner import run
+from rfi_evidence_ledger.runner import _run_source_preflight, run
 from rfi_evidence_ledger.verifier import verify_claims
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +41,41 @@ def test_supported_evidence_has_two_current_replayable_claims():
     registry = RevisionRegistry(load_bundle(BUNDLE))
     assert all(finding.valid for finding in verify_claims(outcome.claims, registry))
     assert {claim.citations[0].revision for claim in outcome.claims} == {1, 3}
+
+
+def test_supported_evidence_records_deterministic_dependency_route_and_source_preflight():
+    outcome = outcome_for("supported_evidence.json")
+
+    assert [step["step"] for step in outcome.dependency_map] == [
+        "intake",
+        "policy_preflight",
+        "source_preflight_fan",
+        "scenario_evidence",
+        "citation_replay",
+        "human_review",
+    ]
+    assert [check.document_key for check in outcome.source_preflight] == ["A-101", "SPEC-079200"]
+    assert all(check.status == "ready" for check in outcome.source_preflight)
+    assert outcome.route_trace[-1]["route"] == "human_review_required"
+
+
+def test_source_preflight_fan_joins_independent_checks_in_stable_order():
+    task = load_task(ROOT / "examples" / "supported_evidence.json")
+    documents = load_bundle(ROOT / task.bundle_path)
+    registry = RevisionRegistry(documents)
+
+    first = [check.to_dict() for check in _run_source_preflight(task, documents, registry)]
+    second = [check.to_dict() for check in _run_source_preflight(task, documents, registry)]
+
+    assert first == second
+    assert [check["document_key"] for check in first] == ["A-101", "SPEC-079200"]
+
+
+def test_missing_source_joins_preflight_results_before_safe_stop():
+    outcome = outcome_for("missing_source.json")
+
+    assert any(check.status == "missing" for check in outcome.source_preflight)
+    assert outcome.route_trace[-1]["route"] == "policy_stop"
 
 
 def test_stale_revision_is_not_used_as_a_claim():
@@ -79,6 +114,9 @@ def test_receipt_is_hashed_and_artifacts_are_written(tmp_path: Path):
     assert paths["dossier"].exists()
     saved_receipt = json.loads(paths["receipt"].read_text(encoding="utf-8"))
     assert saved_receipt["terminal_state"] == "evidence_packet_ready"
+    assert saved_receipt["execution_graph"]["source_preflight_mode"] == "bounded_local_fan_in"
+    assert saved_receipt["execution_graph"]["route_trace"][-1]["route"] == "human_review_required"
+    assert [item["document_key"] for item in saved_receipt["source_preflight"]] == ["A-101", "SPEC-079200"]
 
 
 def test_unknown_manifest_field_is_rejected(tmp_path: Path):

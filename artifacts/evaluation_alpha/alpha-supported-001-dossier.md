@@ -10,7 +10,7 @@
 | Terminal state | `evidence_packet_ready` |
 | Evidence claims | 2 |
 | Citations | 2 |
-| Receipt hash | `f9c4e832878e2bdd90a9961ebee5ca51115ed7c0d4de22af7e0a279f2404e90d` |
+| Receipt hash | `e8771382f5d0135a8f5567d3da983144c1e2c56af95e8a7e802569957db912a9` |
 
 Current drawing and specification sources were cited and replay-validated. A human project manager must still determine any official RFI response.
 
@@ -35,6 +35,25 @@ Verified current specification evidence: Section 07 92 00: At rated penetrations
 - **allowed** `manifest.document_allowlist` — All bundle document keys are explicitly authorized by the task manifest.
 - **allowed** `manifest.required_evidence` — All required evidence document keys are present in the authorized bundle.
 - **allowed** `budget.max_documents` — Bundle contains 4 documents within the manifest budget.
+
+## Execution graph
+
+**Mode:** `bounded_local_fan_in` — only independent required-source checks may run concurrently.
+
+- `intake` ← root — Load one approved task manifest and one local versioned bundle.
+- `policy_preflight` ← intake — Fail closed on bundle allowlist, required-evidence, and document-budget violations.
+- `source_preflight_fan` ← intake — Check each independent required source key locally, then join results in sorted manifest order.
+- `scenario_evidence` ← policy_preflight, source_preflight_fan — Construct only the bounded scenario evidence permitted by the manifest.
+- `citation_replay` ← scenario_evidence — Replay every citation against the current approved source registry.
+- `human_review` ← citation_replay — Require a human project decision; the alpha cannot issue or change an RFI.
+
+**Route trace:**
+- `human_review_required` — All claims replayed against current approved local sources; a human must still decide any project action.
+
+## Required-source preflight
+
+- `A-101` — `ready`; current revision: `3`; A current approved revision is available in the authorized local bundle.
+- `SPEC-079200` — `ready`; current revision: `1`; A current approved revision is available in the authorized local bundle.
 
 ## Required human action
 

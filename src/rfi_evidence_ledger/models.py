@@ -131,6 +131,22 @@ class PolicyDecision:
         return asdict(self)
 
 
+@dataclass(frozen=True)
+class SourcePreflight:
+    """One bounded, local readiness check for an independently authorized source key."""
+
+    document_key: str
+    source_present: bool
+    allowlisted: bool
+    current_document_id: str | None
+    current_revision: int | None
+    status: str
+    reason: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
 @dataclass
 class EvidenceOutcome:
     """All reviewable evidence from one bounded offline investigation."""
@@ -141,6 +157,9 @@ class EvidenceOutcome:
     registry: dict[str, dict[str, Any]] = field(default_factory=dict)
     claims: list[EvidenceClaim] = field(default_factory=list)
     policy_events: list[PolicyDecision] = field(default_factory=list)
+    source_preflight: list[SourcePreflight] = field(default_factory=list)
+    dependency_map: list[dict[str, Any]] = field(default_factory=list)
+    route_trace: list[dict[str, str]] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     elapsed_seconds: float = 0.0
 
@@ -152,6 +171,9 @@ class EvidenceOutcome:
             "registry": self.registry,
             "claims": [claim.to_dict() for claim in self.claims],
             "policy_events": [event.to_dict() for event in self.policy_events],
+            "source_preflight": [check.to_dict() for check in self.source_preflight],
+            "dependency_map": self.dependency_map,
+            "route_trace": self.route_trace,
             "warnings": self.warnings,
             "elapsed_seconds": self.elapsed_seconds,
         }

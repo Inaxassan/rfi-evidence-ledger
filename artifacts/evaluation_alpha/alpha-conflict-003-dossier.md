@@ -10,7 +10,7 @@
 | Terminal state | `conflicting_evidence` |
 | Evidence claims | 0 |
 | Citations | 0 |
-| Receipt hash | `446d4e2c8783955338058365329098f42b342cbc22f25bc5e8d9a1f7b6927035` |
+| Receipt hash | `15738a265c30dcca9ef4bcf7ad44c2e2d9e284f8775591d214ddd9592a77bc64` |
 
 Current approved sources contain materially different firestopping requirements. The runner escalated both citations and made no interpretation.
 
@@ -23,6 +23,25 @@ No evidence claim was emitted. The terminal state explains why the runner stoppe
 - **allowed** `manifest.document_allowlist` — All bundle document keys are explicitly authorized by the task manifest.
 - **allowed** `manifest.required_evidence` — All required evidence document keys are present in the authorized bundle.
 - **allowed** `budget.max_documents` — Bundle contains 4 documents within the manifest budget.
+
+## Execution graph
+
+**Mode:** `bounded_local_fan_in` — only independent required-source checks may run concurrently.
+
+- `intake` ← root — Load one approved task manifest and one local versioned bundle.
+- `policy_preflight` ← intake — Fail closed on bundle allowlist, required-evidence, and document-budget violations.
+- `source_preflight_fan` ← intake — Check each independent required source key locally, then join results in sorted manifest order.
+- `scenario_evidence` ← policy_preflight, source_preflight_fan — Construct only the bounded scenario evidence permitted by the manifest.
+- `citation_replay` ← scenario_evidence — Replay every citation against the current approved source registry.
+- `human_review` ← citation_replay — Require a human project decision; the alpha cannot issue or change an RFI.
+
+**Route trace:**
+- `conflict_stop` — Current approved sources disagree and the runner will not interpret the conflict.
+
+## Required-source preflight
+
+- `SPEC-079200` — `ready`; current revision: `1`; A current approved revision is available in the authorized local bundle.
+- `SUBMITTAL-FIRESTOP` — `ready`; current revision: `2`; A current approved revision is available in the authorized local bundle.
 
 ## Warnings and escalations
 

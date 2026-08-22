@@ -34,6 +34,12 @@ def build_receipt(outcome: EvidenceOutcome) -> dict[str, Any]:
         "allowed_document_keys": list(outcome.task.allowed_document_keys),
         "required_document_keys": list(outcome.task.required_document_keys),
         "policy_events": [event.to_dict() for event in outcome.policy_events],
+        "execution_graph": {
+            "dependency_map": outcome.dependency_map,
+            "route_trace": outcome.route_trace,
+            "source_preflight_mode": "bounded_local_fan_in",
+        },
+        "source_preflight": [check.to_dict() for check in outcome.source_preflight],
         "claim_count": len(outcome.claims),
         "citation_count": sum(len(claim.citations) for claim in outcome.claims),
         "warnings": outcome.warnings,
@@ -82,6 +88,26 @@ def _dossier_text(outcome: EvidenceOutcome, receipt: dict[str, Any]) -> str:
     for event in outcome.policy_events:
         verdict = "allowed" if event.allowed else "blocked"
         lines.append(f"- **{verdict}** `{event.rule}` — {event.reason}")
+    lines.append("")
+    lines.extend(["## Execution graph", ""])
+    if outcome.dependency_map:
+        lines.append("**Mode:** `bounded_local_fan_in` — only independent required-source checks may run concurrently.")
+        lines.append("")
+        lines.extend(
+            f"- `{step['step']}` ← {', '.join(step['depends_on']) or 'root'} — {step['purpose']}"
+            for step in outcome.dependency_map
+        )
+    if outcome.route_trace:
+        lines.extend(["", "**Route trace:**"])
+        lines.extend(f"- `{route['route']}` — {route['reason']}" for route in outcome.route_trace)
+    lines.extend(["", "## Required-source preflight", ""])
+    if outcome.source_preflight:
+        lines.extend(
+            f"- `{check.document_key}` — `{check.status}`; current revision: `{check.current_revision}`; {check.reason}"
+            for check in outcome.source_preflight
+        )
+    else:
+        lines.append("No required-source preflight was recorded for this legacy outcome.")
     lines.append("")
     if outcome.warnings:
         lines.extend(["## Warnings and escalations", ""])

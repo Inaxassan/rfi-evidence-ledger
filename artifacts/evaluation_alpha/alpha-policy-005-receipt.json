@@ -5,7 +5,59 @@
   ],
   "citation_count": 0,
   "claim_count": 0,
-  "elapsed_seconds": 3e-05,
+  "elapsed_seconds": 0.00046,
+  "execution_graph": {
+    "dependency_map": [
+      {
+        "depends_on": [],
+        "purpose": "Load one approved task manifest and one local versioned bundle.",
+        "step": "intake"
+      },
+      {
+        "depends_on": [
+          "intake"
+        ],
+        "purpose": "Fail closed on bundle allowlist, required-evidence, and document-budget violations.",
+        "step": "policy_preflight"
+      },
+      {
+        "depends_on": [
+          "intake"
+        ],
+        "purpose": "Check each independent required source key locally, then join results in sorted manifest order.",
+        "step": "source_preflight_fan"
+      },
+      {
+        "depends_on": [
+          "policy_preflight",
+          "source_preflight_fan"
+        ],
+        "purpose": "Construct only the bounded scenario evidence permitted by the manifest.",
+        "step": "scenario_evidence"
+      },
+      {
+        "depends_on": [
+          "scenario_evidence"
+        ],
+        "purpose": "Replay every citation against the current approved source registry.",
+        "step": "citation_replay"
+      },
+      {
+        "depends_on": [
+          "citation_replay"
+        ],
+        "purpose": "Require a human project decision; the alpha cannot issue or change an RFI.",
+        "step": "human_review"
+      }
+    ],
+    "route_trace": [
+      {
+        "reason": "The manifest boundary or document budget was not satisfied before evidence generation.",
+        "route": "policy_stop"
+      }
+    ],
+    "source_preflight_mode": "bounded_local_fan_in"
+  },
   "policy_events": [
     {
       "allowed": false,
@@ -23,7 +75,7 @@
       "rule": "budget.max_documents"
     }
   ],
-  "receipt_sha256": "bbb36caff47ee13b7c5ab9aa179a3fc6f880eb8a15a5f23fc1cba7771919e073",
+  "receipt_sha256": "8f09fe5309895c7c1e5ee7768dbae8d1f6aaf42387b44da4e58b29f3b093d2db",
   "required_document_keys": [
     "A-101",
     "SPEC-079200"
@@ -35,6 +87,26 @@
     "version": "0.1.0a0"
   },
   "schema_version": "1.0",
+  "source_preflight": [
+    {
+      "allowlisted": true,
+      "current_document_id": "A-101-R3",
+      "current_revision": 3,
+      "document_key": "A-101",
+      "reason": "A current approved revision is available in the authorized local bundle.",
+      "source_present": true,
+      "status": "ready"
+    },
+    {
+      "allowlisted": true,
+      "current_document_id": "SPEC-079200-R1",
+      "current_revision": 1,
+      "document_key": "SPEC-079200",
+      "reason": "A current approved revision is available in the authorized local bundle.",
+      "source_present": true,
+      "status": "ready"
+    }
+  ],
   "source_registry_sha256": "9b76350718f802fe2822cda3c7d3366665fec48d09b626a7f1f1ca1a775504fc",
   "summary": "The runner stopped before evidence generation because the approved manifest boundary was not satisfied.",
   "task_id": "alpha-policy-005",
