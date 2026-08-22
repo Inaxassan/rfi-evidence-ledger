@@ -6,6 +6,8 @@
 [![Offline](https://img.shields.io/badge/runtime-offline%20fixture-172B4D)](EVALUATOR_CHECKLIST.md)
 [![Human Review](https://img.shields.io/badge/decision-human%20review%20required-F2B134)](SECURITY_BOUNDARY.md)
 
+> **Launch-site preview:** [Open the RFI Evidence Ledger evaluation-alpha website](https://rfievidledge-8i6jveid.manus.space). The site explains the public offline evaluation; it is not a live-project demo or a production service.
+
 **RFI Evidence Ledger** is a bounded construction-document evidence-runner evaluation alpha. Given one approved task manifest and one local, versioned document bundle, it creates a source registry, identifies current and superseded revisions, checks the document-access boundary, and produces a cited evidence dossier or an explicit safe-stop outcome.
 
 It is intentionally **not** an autonomous construction agent. It cannot submit an RFI, modify a project record, access the web, connect to Procore/SharePoint/Drive, send email, calculate schedule or cost impact, make an engineering determination, or replace a project manager’s decision.
